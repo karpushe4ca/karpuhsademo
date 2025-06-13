@@ -92,8 +92,7 @@ Address: 192.168.2.1/24
 Gateway: 192.168.2.2
 # Перезагрузить BR-RTR и HQ-RTR 
 ```
-
-### 6. Настройка протокола динамической конфигурации хостов 
+### 6. Настройка протокола динамической конфигурации хостов HQ-RTR
 ```bash
 nano /etc/sysconfig/dhcpd
 ```
@@ -178,6 +177,53 @@ quit
 systemctl restart frr
 # Перезагрузить BR-RTR и HQ-RTR
 ```
+### Настройка DNS для офисов HQ-SRV и BR-SRV
+### HQ-SRV
+```bash
+nano /etc/bind/options.conf
+```
+```
+listen on { any; };
+```
+```
+forward first;
+forwarders { 77.88.8.8; };
+```
+```
+systemctl enable bind —now
+```
+```
+nano /etc/bind/local.conf
+```
+```
+zone "au-team.irpо" {
+        type master;
+        file "au.db";
+};
+```
+```
+zone "8.16.172. in-addr.arpa" {
+        type master;
+        file "0.db";
+};
+```
+```
+cd /etc/bind/zone
+```
+```
+cp localdomain au.db
+```
+```
+cp 127.in-addr.arpa 0.db
+```
+```
+Chown root:named {au,0}.db
+```
+```
+nano au.db
+```
+
+
 
 
 
