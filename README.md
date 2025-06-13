@@ -124,6 +124,9 @@ systemctl enable –-now dhcpd
 ```
 ### 7. Настройка OSPF HQ-RTR И BR-RTR
 ```bash
+#Отключить FireWall systemctl disable firewalld --now hq-r
+```
+```
 nano /etc/frr/daemons
 ```
 ```
