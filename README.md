@@ -42,7 +42,9 @@ IP - 192.168.60.3  Маска: 27 (255.255.255.224)  Шлюз: 192.168.60.1
 useradd -m -u 1010 sshuser
 passwd sshuser
 ```
+```
 nano /etc/sudoers
+```
 ```
 sshuser ALL=(ALL:ALL)NOPASSWD:ALL
 ```
