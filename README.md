@@ -1,9 +1,10 @@
 # Demo2025
-## Изменение наименований машин
+## 1. Изменение наименований машин
+```bash
 hostnamectl set-hostname isp.au-team.irpo;
-
+exec bash
+```
 ## Создание связей между машинами\
-bash
 ### ISP (nmtui)
     isp-hq  172.16.4.1/28
     isp-br  172.16.5.1/28
@@ -22,6 +23,7 @@ bash
 ### BR-DC (Graphics)
     IP - 192.168.60.3  Маска: 27 (255.255.255.224)  Шлюз: 192.168.60.1
 ## Создайте пользователя sshuser на серверах HQ-SRV и BR-SRV
+    > Создание пользователей
     useradd -m -u 1010 sshuser
     passwd sshuser
     nano /etc/sudoers
@@ -36,6 +38,9 @@ bash
     AllowUsers sshuser
     systemctl restart sshd.service
 ## Сконфигурировать ip туннель HQ и BR
+### ISP
+    nano /etc/net/sysctl.conf
+    net ipv4 forwarding = 1
 ### BR-RTR
     Название tun1
     mode: GRE
@@ -50,6 +55,10 @@ bash
     Remote: 172.16.5.2
     Address: 192.168.2.1/24
     Gateway: 192.168.2.2
-### 
+### Настройка протокола динамической конфигурации хостов HQ-RTR
+    nano /etc/sysconfig/dhcpd
+    DHCPARGS=ens35
+    
+
 
     
