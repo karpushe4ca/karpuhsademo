@@ -177,7 +177,7 @@ quit
 systemctl restart frr
 # Перезагрузить BR-RTR и HQ-RTR
 ```
-### Настройка DNS для офисов HQ-SRV и BR-SRV
+### Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
 ```bash
 nano /etc/bind/options.conf
@@ -221,6 +221,23 @@ Chown root:named {au,0}.db
 ```
 ```
 nano au.db
+```
+```
+au-team.irpo. root.au-team.irpo.
+moodle hq-rtr.au-team.irpo.
+wiki hq-rtr.au-team.irpo.
+```
+```
+nano 0.db
+```
+```
+au-team.irpo. root.au-team.irpo.
+1 IN PTR hq-rtr.au-team.irpo.
+2 IN PTR hq-srv.au-team.irpo.
+3 IN PTR hq-cli.au-team.irpo.
+```
+```
+Systemctl restart bind
 ```
 
 
