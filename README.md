@@ -118,7 +118,7 @@ subnet 172.16.0.0 netmask 255.255.255.192 {
 }
 ```
 ```
-systemctl enable –now dhcpd
+systemctl enable –-now dhcpd
 ```
 ### 7. Настройка OSPF HQ-RTR И BR-RTR
 ```bash
