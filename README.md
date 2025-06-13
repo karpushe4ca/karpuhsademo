@@ -6,29 +6,46 @@ exec bash
 ```
 ## Создание связей между машинами\
 ### ISP (nmtui)
-    isp-hq  172.16.4.1/28
-    isp-br  172.16.5.1/28
+```bash
+isp-hq  172.16.4.1/28
+isp-br  172.16.5.1/28
+```
 ### HQ-RTR (nmtui)
+```bash
     isp - hq-rtr - 172.16.4.2/28 gateway 172.16.4.1 
     hq - in  192.168.10.1/26
+```
 ### BR-RTR (nmtui)
+```bash
     isp - br-rtr - 172.16.5.2/28 gateway 172.16.5.1 
     br - in 192.168.60.1/27
+```
 ### HQ-SRV (Graphics)
+```bash
     IP - 192.168.10.2  Маска: 26  Шлюз: 192.168.10.1
+```
 ### HQ-CLI (Graphics)
+```bash
     IP - 192.168.10.3  Маска: 28  Шлюз: 192.168.10.1
+```
 ### BR-SRV (Graphics)
+```bash
     IP - 192.168.60.2  Маска: 27  Шлюз: 192.168.60.1
+```
 ### BR-DC (Graphics)
+```bash
     IP - 192.168.60.3  Маска: 27 (255.255.255.224)  Шлюз: 192.168.60.1
+```
 ## Создайте пользователя sshuser на серверах HQ-SRV и BR-SRV
-    > Создание пользователей
-    useradd -m -u 1010 sshuser
-    passwd sshuser
-    nano /etc/sudoers
-    sshuser ALL=(ALL:ALL)NOPASSWD:ALL
+```bash
+Создание пользователей
+useradd -m -u 1010 sshuser
+passwd sshuser
+nano /etc/sudoers
+sshuser ALL=(ALL:ALL)NOPASSWD:ALL
+```
 ## Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV
+```bash
     nano /etc/mybanner
     Authorized access only
     nano /etc/openssh/sshd_config
@@ -37,10 +54,15 @@ exec bash
     MaxAuthTries 2
     AllowUsers sshuser
     systemctl restart sshd.service
+```
 ## Сконфигурировать ip туннель HQ и BR
 ### ISP
-    nano /etc/net/sysctl.conf
-    net ipv4 forwarding = 1
+```bash
+nano /etc/net/sysctl.conf
+```
+```
+net ipv4 forwarding = 1
+```
 ### BR-RTR
     Название tun1
     mode: GRE
