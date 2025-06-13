@@ -1,2 +1,6 @@
-# karpuhsademo
-karpuhsademo
+# Demo2025
+#Изменение наименований машин
+hostnamectl
+#Создание связей между машинами
+ISP - no ip
+ISP - 
