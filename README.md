@@ -177,7 +177,7 @@ quit
 systemctl restart frr
 # Перезагрузить BR-RTR и HQ-RTR
 ```
-### Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
+### 8. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
 ```bash
 nano /etc/bind/options.conf
@@ -239,6 +239,10 @@ au-team.irpo. root.au-team.irpo.
 ```
 Systemctl restart bind
 ```
+### Поднять AD DS в WinSrv
+### Caps
+### nfs
+
 
 
 
