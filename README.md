@@ -41,12 +41,27 @@ IP - 192.168.60.3  Маска: 27 (255.255.255.224)  Шлюз: 192.168.60.1
 Создание пользователей
 useradd -m -u 1010 sshuser
 passwd sshuser
+# P@ssw0rd
 ```
 ```
 nano /etc/sudoers
 ```
 ```
 sshuser ALL=(ALL:ALL)NOPASSWD:ALL
+```
+## 3.1 Создайте пользователя net_admin на серверах HQ-SRV и BR-SRV
+```bash
+adduser net_admin
+```
+```
+passwd net_admin
+# P@$$word
+```
+```
+nano /etc/sudoers
+```
+```
+net_admin ALL=(ALL:ALL)NOPASSWD:ALL
 ```
 ## 4. Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV
 ```bash
@@ -181,6 +196,13 @@ save
 quit
 systemctl restart frr
 # Перезагрузить BR-RTR и HQ-RTR
+```
+### Проверка работы OSPF
+```bash
+vtysh
+```
+```
+show ip ospf neighbor
 ```
 ### 8. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
