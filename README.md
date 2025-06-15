@@ -159,7 +159,7 @@ conf t
 router ospf
 passive-interface default
 network 192.168.0.0/24 area 0
-network 172.16.10.1/26 area 0 
+network 192.168.10.1/26 area 0 
 exit
 interface tun1
 no ip ospf network broadcast
