@@ -222,7 +222,57 @@ chronyc sources
 ```
 chronyc tracking | grep Stratum (Должно равняться 5)
 ```
-### 9. Настройте принт-сервер cups на сервере HQ-SRV. (Если будет работать)
+### 9. Создание RAID 5 на HQ-SRV
+```bash
+#Создаем диски, после создания:
+lsblk (Выводит диски)
+```
+```
+# Обнуляем суперблоки 
+mdadm --zero-superblock --force /dev/sd{b,c,d}
+Вывод: mdadm: Unrecongised md component device - /dev/sdx
+```
+```
+# Удаляем старые данные
+wipefs --all --force /dev/sd{b,c,d}
+```
+### Создание RAID
+```bash
+mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}
+```
+```
+# Проверяем, должен быть в конце raid5
+lsblk
+```
+```
+# Создаем фалйовую систему
+mkfs -t ext4 /dev/md0
+```
+```
+mkdir /etc/mdadm
+```
+```
+#Заполняем файл
+echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
+mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
+```
+```
+#Создаем директорию
+mkdir /mnt/raid5
+```
+```
+/etc/fstab
+```
+```
+/dev/md0  /mnt/raid5  ext4  defaults  0  0
+```
+```
+mount -a
+```
+```
+df -h (Проверяем)
+```
+### 10. Настройте принт-сервер cups на сервере HQ-SRV. (Если будет работать)
 ### HQ-SRV   
 ```bash
 usermod -aG lpadmin
@@ -286,7 +336,7 @@ echo "Test page from $(hostname)" | enscript -o - | ps2pdf - test.pdf
 ```
 lp -d PDF test.pdf
 ```
-### 10. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
+### 11. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
 ```bash
 nano /etc/bind/options.conf
@@ -349,7 +399,6 @@ au-team.irpo. root.au-team.irpo.
 Systemctl restart bind
 ```
 ### Поднять AD DS в WinSrv
-### 10. Настройте принт-сервер cups на сервере HQ-SRV.
 
 
 
