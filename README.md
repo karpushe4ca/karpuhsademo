@@ -96,8 +96,8 @@ net ipv4 forwarding = 1
 mode: GRE
 Local: 172.16.5.2
 Remote: 172.16.4.2
-Address: 192.168.2.2/24
-Gateway: 192.168.2.1
+Address: 192.168.0.2/24
+Gateway: 192.168.0.1
 ```
 ### HQ-RTR
 ```bash
@@ -105,9 +105,9 @@ Gateway: 192.168.2.1
 mode: GRE
 Local: 172.16.4.2
 Remote: 172.16.5.2
-Address: 192.168.2.1/24
-Gateway: 192.168.2.2
-# Перезагрузить BR-RTR и HQ-RTR 
+Address: 192.168.0.1/24
+Gateway: 192.168.0.2
+# Перезагрузить BR-RTR и HQ-RTR и не забыть перезапустить интернет
 ```
 ### 6. Настройка протокола динамической конфигурации хостов HQ-RTR
 ```bash
@@ -123,16 +123,18 @@ cp /etc/dhcp/dhcpd.conf{.example,}
 nano /etc/dhcp/dhcpd.conf
 ```
 ```
-option domain-name “au-team.irpo”;
-option domain-name-servers 172.16.0.2;
+option domain-name "au-team.irpo";
+option domain-name-servers 192.168.10.2;
+
 default-lease-time 6000;
 max-lease-time 72000;
 
 authoritative;
-subnet 172.16.0.0 netmask 255.255.255.192 {
-        range 172.16.0.3 172.16.0.8;
-        option routers 172.16.0.1;
+subnet 192.168.10.0 netmask 255.255.255.192 {
+    range 192.168.10.10 192.168.10.20;
+    option routers 192.168.10.1;
 }
+
 ```
 ```
 systemctl enable –-now dhcpd
