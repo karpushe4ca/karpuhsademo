@@ -206,7 +206,87 @@ vtysh
 ```
 show ip ospf neighbor
 ```
-### 8. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
+### 8. Настройка chrony HQ-SRV
+```bash
+server 127.0.0.1 iburst prefer
+hwtimestamp *
+local stratum 5
+allow 0/0
+```
+```
+systemctl enable --now chronyd
+```
+```
+chronyc sources
+```
+```
+chronyc tracking | grep Stratum (Должно равняться 5)
+```
+### 9. Настройте принт-сервер cups на сервере HQ-SRV. (Если будет работать)
+### HQ-SRV   
+```bash
+usermod -aG lpadmin
+```
+```
+systemctl enable cups
+systemctl start cups
+```
+```
+nano /etc/cups/cupsd.conf
+```
+```
+Port 631
+
+<Location />
+  Order allow,deny
+  Allow all
+</Location>
+
+<Location /admin>
+  Order allow,deny
+  Allow all
+</Location>
+
+```
+```
+sudo systemctl restart cups
+```
+```
+# Если он не создан, ты можешь создать его вручную через веб-интерфейс или командой
+lpadmin -p PDF -E -v cups-pdf:/ -m drv:///cupsfilters/PDF.ppd
+```
+```
+lpadmin -p PDF -o printer-is-shared=true
+```
+```
+cupsctl --share-printers
+```
+### HQ-CLI
+```bash
+nano /etc/cups/client.conf
+```
+```
+ServerName 192.168.10.2
+```
+```
+sudo systemctl restart cups
+```
+```
+# Убедиться что работает принтер
+lpstat -a 
+```
+```
+lpoptions -d PDF
+```
+```
+# Создание тестового PDF файла
+echo "Test page from $(hostname)" | enscript -o - | ps2pdf - test.pdf
+(echo "Test page from $(hostname)" > test.pdf) если не сработает верхний
+```
+```
+lp -d PDF test.txt
+```
+### 10. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
 ```bash
 nano /etc/bind/options.conf
@@ -269,8 +349,8 @@ au-team.irpo. root.au-team.irpo.
 Systemctl restart bind
 ```
 ### Поднять AD DS в WinSrv
-### Caps
-### nfs
+### 10. Настройте принт-сервер cups на сервере HQ-SRV.
+
 
 
 
