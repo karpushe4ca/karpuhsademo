@@ -382,6 +382,11 @@ Chown root:named {au,0}.db
 nano au.db
 ```
 ```
+hq-rtr    192.168.10.1
+hq-srv    192.168.10.2
+hq-cli    192.168.10.3
+br-rtr    192.168.60.1
+br-srv    192.168.60.2
 au-team.irpo. root.au-team.irpo.
 moodle hq-rtr.au-team.irpo.
 wiki hq-rtr.au-team.irpo.
