@@ -284,7 +284,7 @@ echo "Test page from $(hostname)" | enscript -o - | ps2pdf - test.pdf
 (echo "Test page from $(hostname)" > test.pdf) если не сработает верхний
 ```
 ```
-lp -d PDF test.txt
+lp -d PDF test.pdf
 ```
 ### 10. Настройка DNS для офисов HQ-SRV и BR-SRV (Если успею!)
 ### HQ-SRV
