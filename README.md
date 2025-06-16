@@ -267,7 +267,7 @@ mkdir /mnt/raid5
 /etc/fstab
 ```
 ```
-/dev/md0  /mnt/raid5  ext4  defaults  0  0
+/dev/md0  /mnt/raid5  ext4  defaults  0  0 (Через tab)
 ```
 ```
 mount -a
