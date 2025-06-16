@@ -82,9 +82,10 @@ AllowUsers sshuser
 ```
 systemctl restart sshd.service
 ```
-## 5. Сконфигурировать ip туннель HQ и BR
+## 5. Сконфигурировать ip туннель HQ и BR 
 ### ISP
 ```bash
+#Туннелирование широковещательными пакетами 
 nano /etc/net/sysctl.conf
 ```
 ```
@@ -141,7 +142,7 @@ systemctl enable –-now dhcpd
 ```
 ### 7. Настройка OSPF HQ-RTR И BR-RTR
 ```bash
-#Отключить FireWall systemctl disable firewalld --now hq-r
+#Отключить FireWall systemctl disable firewalld --now для скорости маршрутов и интеграции
 ```
 ```
 nano /etc/frr/daemons
@@ -405,8 +406,9 @@ au-team.irpo. root.au-team.irpo.
 ```
 ```
 Systemctl restart bind
+гибкость настройки 
 ```
-### Поднять AD DS в WinSrv
+
 
 
 
