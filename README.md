@@ -107,7 +107,7 @@ Local: 172.16.4.2
 Remote: 172.16.5.2
 Address: 192.168.0.1/24
 Gateway: 192.168.0.2
-# Перезагрузить BR-RTR и HQ-RTR и не забыть перезапустить интернет
+# Перезагрузить BR-RTR и HQ-RTR и не забыть перезапустить интернет и ISP
 ```
 ### 6. Настройка протокола динамической конфигурации хостов HQ-RTR
 ```bash
@@ -208,6 +208,9 @@ show ip ospf neighbor
 ```
 ### 8. Настройка chrony HQ-SRV
 ```bash
+/etc/chrony.conf
+```
+```
 server 127.0.0.1 iburst prefer
 hwtimestamp *
 local stratum 5
